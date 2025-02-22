@@ -26,7 +26,7 @@ namespace DataAccess.Concrete
         public DbSet<SubAbouth> SubAbouths { get; set; }
         public DbSet<Testimonial> Testimonials { get; set; }
 
-
+        public DbSet<Comment> Comments { get; set; }
 
 
 
