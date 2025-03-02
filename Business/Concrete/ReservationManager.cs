@@ -28,7 +28,7 @@ namespace Business.Concrete
             return _reservationDal.GetListWithReservationByPrevious(id);
         }
 
-        public List<Reservation> GetListWithReservationByWaitAprroval(int id)
+        public List<Reservation> GetListWithReservationByWaitAproval(int id)
         {
             return _reservationDal.GetListWithReservationByWaitAprroval(id);
         }
