@@ -20,12 +20,12 @@ namespace Business.Concrete
 
         public void Add(Destination entity)
         {
-            throw new NotImplementedException();
+           _destinationDal.Insert(entity);
         }
 
         public void Delete(Destination entity)
         {
-            throw new NotImplementedException();
+            _destinationDal.Delete(entity);
         }
 
         public List<Destination> GetAll()
@@ -40,7 +40,7 @@ namespace Business.Concrete
 
         public void Update(Destination entity)
         {
-            throw new NotImplementedException();
+            _destinationDal.Update(entity);
         }
     }
 }
