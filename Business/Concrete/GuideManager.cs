@@ -20,12 +20,12 @@ namespace Business.Concrete
 
         public void Add(Guide entity)
         {
-            throw new NotImplementedException();
+            _guideDal.Insert(entity);
         }
 
         public void Delete(Guide entity)
         {
-            throw new NotImplementedException();
+            _guideDal.Delete(entity);
         }
 
         public List<Guide> GetAll()
@@ -35,12 +35,12 @@ namespace Business.Concrete
 
         public Guide GetById(int id)
         {
-            throw new NotImplementedException();
+            return _guideDal.GetByID(id);
         }
 
         public void Update(Guide entity)
         {
-            throw new NotImplementedException();
+            _guideDal.Update(entity);
         }
     }
 }
