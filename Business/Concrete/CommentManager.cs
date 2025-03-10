@@ -24,12 +24,12 @@ namespace Business.Concrete
 
         public void Delete(Comment entity)
         {
-            throw new NotImplementedException();
+           _commentDal.Delete(entity);
         }
 
         public List<Comment> GetAll()
         {
-            throw new NotImplementedException();
+            return _commentDal.GetAll();
         }
 
         public List<Comment> TGetDestinationById(int id)
@@ -38,12 +38,17 @@ namespace Business.Concrete
         }
         public Comment GetById(int id)
         {
-            throw new NotImplementedException();
+           return _commentDal.GetByID(id);
         }
 
         public void Update(Comment entity)
         {
-            throw new NotImplementedException();
+            _commentDal.Update(entity);
+        }
+
+        public List<Comment> GetListCommentWithDestination()
+        {
+            return _commentDal.GetListCommentWithDestination();
         }
     }
 }

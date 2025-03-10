@@ -1,4 +1,9 @@
+using Business.Abstract;
+using Business.Concrete;
+using Business.Container;
+using DataAccess.Abstract;
 using DataAccess.Concrete;
+using DataAccess.EntityFramework;
 using Entity.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +36,8 @@ namespace TraversalCoreProject
             services.AddDbContext<Context>();
             services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<Context>().AddErrorDescriber<CustomIdentityValidator>().AddEntityFrameworkStores<Context>();
             services.AddControllersWithViews();
+            
+            services.ContainerDependecies();
 
             services.AddMvc(config=>
             {

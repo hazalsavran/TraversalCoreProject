@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public  interface ICommentDal : IRepository<Comment>
+    public interface IAppUserDal : IRepository<AppUser>
     {
-        public List<Comment> GetListCommentWithDestination();
     }
 }
