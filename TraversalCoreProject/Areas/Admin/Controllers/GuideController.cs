@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using TraversalCoreProject.Areas.Member.Models;
 using TraversalCoreProject.Areas.Admin.Models;
+using Business.ValidationRules;
+using FluentValidation.Results;
+using FluentValidation;
 
 namespace TraversalCoreProject.Areas.Admin.Controllers
 {
@@ -51,6 +54,7 @@ namespace TraversalCoreProject.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddGuide(AddGuideViewModel guide)
         {
+           
             Guide newGuid = new Guide
             {
                 Name = guide.Name,
@@ -69,9 +73,21 @@ namespace TraversalCoreProject.Areas.Admin.Controllers
                 await guide.Image.CopyToAsync(stream);
                 newGuid.Image = imageName;
             }
-          
-            _guideService.Add(newGuid);
-            return RedirectToAction("Index");
+            GuideValidator validationRules = new GuideValidator();
+            ValidationResult result = validationRules.Validate(newGuid);
+            if (result.IsValid)
+            {
+                _guideService.Add(newGuid);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
         }
 
         [HttpGet]
@@ -100,10 +116,23 @@ namespace TraversalCoreProject.Areas.Admin.Controllers
                 updatedGuide.Image = imageName;
 
             }
-           
+            GuideValidator validationRules = new GuideValidator();
+            ValidationResult result = validationRules.Validate(updatedGuide);
+            if (result.IsValid)
+            {
+                _guideService.Update(updatedGuide);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
 
-            _guideService.Update(updatedGuide);
-            return RedirectToAction("Index");
+          
         }
 
         [HttpGet]
