@@ -1,0 +1,194 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<h2>Şehir - Ülke İşlemleri</h2>
+<br />
+
+<button type="button" id="btngetlist" class="btn btn-outline-info">Şehir Listesi</button>
+<button type="button" id="btnaddcity" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#cityModal">Şehir Ekle</button>
+<button type="button" id="btnupdatecity" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#cityUpdateModal">Şehir Güncelle</button>
+<button type="button" id="btndeletecity" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#cityDeleteModal">Şehir Sil</button>
+<br />
+<br />
+<div id="citylist">
+    Buraya Şehir Listesi Gelecek
+</div>
+
+<!-- Şehir Ekle Modal -->
+<div class="modal fade" id="cityModal" tabindex="-1" aria-labelledby="cityModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cityModalLabel">Şehir Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="txtcity" placeholder="Şehir adı" class="form-control mb-2" />
+                <input type="text" id="txtdaynight" placeholder="Gün - Gece sayısı" class="form-control mb-2" />
+                <input type="text" id="txtprice" placeholder="Fiyat" class="form-control mb-2" />
+                <input type="text" id="txtcapacity" placeholder="Konaklayacak kişi sayısı" class="form-control mb-2" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" id="btnsavecity">Oluştur</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Şehir Güncelle Modal -->
+<div class="modal fade" id="cityUpdateModal" tabindex="-1" aria-labelledby="cityUpdateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cityUpdateModalLabel">Şehir Güncelle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <select id="cityDropdownUpdate" class="form-control mb-2">
+                    <option value="">Şehir Seç</option>
+                </select>
+                <input type="text" id="txtcityname" placeholder="Şehir adı" class="form-control mb-2" />
+                <input type="text" id="txtdaynightedit" placeholder="Gün - Gece sayısı" class="form-control mb-2" />
+                <input type="text" id="txtpriceEdit" placeholder="Fiyat" class="form-control mb-2" />
+                <input type="text" id="txtcapacityEdit" placeholder="Konaklayacak kişi sayısı" class="form-control mb-2" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-success" id="btnupdate">Güncelle</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Şehir Sil Modal -->
+<div class="modal fade" id="cityDeleteModal" tabindex="-1" aria-labelledby="cityDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cityDeleteModalLabel">Şehir Güncelle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <select id="cityDropdownDelete" class="form-control mb-2">
+                    <option value="">Şehir Seç</option>
+                </select>
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-success" id="btndelete">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Şehir Listesini Getir
+        $("#btngetlist").click(function () {
+            $.get("/Admin/City/CityList/", function (data) {
+                let cities = JSON.parse(data);
+                let dropdownOptions = "<option value=''>Şehir Seç</option>";
+                let tablehtml = "<table class='table table-bordered'><tr><th>Şehir Adı</th><th>Gün-Gece</th><th>Fiyatı</th></tr>";
+                $.each(cities, function (index, city) {
+                    tablehtml += `<tr><td>${city.City}</td><td>${city.DayNight}</td><td>${city.Price} ₺</td></tr>`;
+                    dropdownOptions += `<option value='${city.DestinationId}'>${city.City}</option>`;
+                });
+                tablehtml += "</table>";
+                $("#citylist").html(tablehtml);
+                $("#cityDropdownUpdate").html(dropdownOptions);
+                $("#cityDropdownDelete").html(dropdownOptions);
+            });
+        });
+
+        // Şehir Ekle
+        $("#btnsavecity").click(function () {
+            let cityData = {
+                City: $("#txtcity").val(),
+                DayNight: $("#txtdaynight").val(),
+                Price: $("#txtprice").val(),
+                Capacity: $("#txtcapacity").val()
+            };
+            $.post("/Admin/City/AddCityDestination/", cityData, function () {
+                alert("Şehir başarıyla eklendi.");
+                $("#cityModal").modal('hide');
+                $("#btngetlist").click();
+            });
+        });
+
+        // Şehir Güncelleme Seçildiğinde Alanları Doldur
+        $("#cityDropdownUpdate").change(function () {
+            let selectedId = $(this).val();
+            if (!selectedId) return;
+
+            $.get(`/Admin/City/GetById/?DestinationID=${selectedId}`, function (data) {
+                console.log("Gelen veri:", data); // Gelen veriyi kontrol et
+                try {
+                    let city = JSON.parse(data);
+                    if (!city || !city.City) {
+                        alert("Şehir bilgisi bulunamadı!");
+                        return;
+                    }
+                    $("#txtcityname").val(city.City);
+                    $("#txtdaynightedit").val(city.DayNight);
+                    $("#txtpriceEdit").val(city.Price);
+                    $("#txtcapacityEdit").val(city.Capacity);
+                } catch (error) {
+                    console.error("JSON parse hatası:", error);
+                    alert("Veri alınırken hata oluştu.");
+                }
+            }).fail(function () {
+                alert("Şehir bilgisi alınırken hata oluştu.");
+            });
+        });
+
+        // Şehir Güncelle
+        $("#btnupdate").click(function () {
+            let updateData = {
+                DestinationId: $("#cityDropdownUpdate").val(),
+                City: $("#txtcityname").val(),
+                DayNight: $("#txtdaynightedit").val(),
+                Price: $("#txtpriceEdit").val(),
+                Capacity: $("#txtcapacityEdit").val()
+            };
+
+            $.post("/Admin/City/UpdateCity/", updateData, function () {
+                alert("Şehir başarıyla güncellendi.");
+                $("#cityUpdateModal").modal('hide');
+                $("#btngetlist").click();
+            });
+        });
+
+        
+        // Şehir Sil
+        $("#btndelete").click(function () {
+            let selectedId = $("#cityDropdownDelete").val();
+            if (!selectedId) {
+                alert("Lütfen silmek için bir şehir seçin.");
+                return;
+            }
+
+            // AJAX ile GET isteği gönder
+            $.get(`/Admin/City/DeleteCity/?id=${selectedId}`, function () {
+                alert("Şehir başarıyla silindi.");
+                $("#cityDeleteModal").modal('hide');
+                $("#btngetlist").click(); // Listeyi tekrar getir
+            }).fail(function () {
+                alert("Şehir silinirken bir hata oluştu.");
+            });
+        });
+
+
+       
+
+    });
+</script>
+
+
+
