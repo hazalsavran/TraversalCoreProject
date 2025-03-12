@@ -31,6 +31,9 @@ namespace Business.Container
             services.AddScoped<IGuideDal, EfGuideDal>();
 
             services.AddScoped<IExcelService, ExcelManager>();
+
+            services.AddScoped<IContactUsService, ContactUsManager>();
+            services.AddScoped<IContactUsDal, EfContactUsDal>();
         }
     }
 }
