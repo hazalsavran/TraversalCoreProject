@@ -25,6 +25,7 @@ namespace DataAccess.Concrete
         public DbSet<Feature2> Feature2s { get; set; }
         public DbSet<Guide> Guides { get; set; }
         public DbSet<NewsLetter> NewsLetters { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
         public DbSet<SubAbouth> SubAbouths { get; set; }
         public DbSet<Testimonial> Testimonials { get; set; }
         public DbSet<Reservation> Reservations { get; set; }

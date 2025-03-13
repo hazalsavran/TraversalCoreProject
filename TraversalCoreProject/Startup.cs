@@ -48,6 +48,9 @@ namespace TraversalCoreProject
             
             services.ContainerDependecies();
 
+            services.AddAutoMapper(typeof(Startup));
+            services.CustomerValidator();
+
             services.AddMvc(config=>
             {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
