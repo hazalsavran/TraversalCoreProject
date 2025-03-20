@@ -18,6 +18,7 @@ namespace DataAccess.Concrete
 
         public DbSet<Abouth> Abouths { get; set; }
         public DbSet<Abouth2> Abouth2s { get; set; }
+        public DbSet<Account> Accounts { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<ContactUs> ContactUses { get; set; }
         public DbSet<Destination> Destinations { get; set; }

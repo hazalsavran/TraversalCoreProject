@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLayer.ValidationRules.AnnouncementValidationRules
+namespace Business.ValidationRules.AnnouncementValidationRules
 {
     public class AnnouncementUpdateValidator : AbstractValidator<AnnouncementUpdateDto>
     {
