@@ -1,10 +1,14 @@
-﻿ @model Destination
+﻿@model Entity.Concrete.Destination
 @{
-    ViewData["Title"] = "Detail";
+    ViewData["Title"] = "DestinationDetails";
     Layout = "~/Views/Shared/_UILayout.cshtml";
 }
-<!-- about breadcrumb -->
-  <!-- about breadcrumb -->
+
+<!doctype html>
+<html lang="zxx">
+
+<body>
+    <!-- about breadcrumb -->
     <section class="w3l-about-breadcrumb text-left">
         <div class="breadcrumb-bg breadcrumb-bg-about py-sm-5 py-4">
             <div class="container">
@@ -151,13 +155,17 @@
                         </div>
                     </div>
                     <!--//author-card-->
+                    @await Component.InvokeAsync("_CommentList", new { id = ViewBag.i })
 
-
-               @await Component.InvokeAsync("_CommentList", new {id = ViewBag.Id})
-                @await Html.PartialAsync("~/Views/Comment/AddComment.cshtml")
-           
+                    @await Html.PartialAsync("~/Views/Comment/AddComment.cshtml", new { id = ViewBag.destID })
+                    <br /><br />
+                </div>
             </div>
+            <!--//blog-post-->
         </div>
-        <!--//blog-post-->
-        </div>
-</section>
+    </section>
+
+    <!--/w3l-footer-29-main-->
+</body>
+
+</html>

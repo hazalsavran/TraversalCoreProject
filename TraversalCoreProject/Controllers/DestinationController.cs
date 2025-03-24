@@ -1,4 +1,5 @@
-﻿using Business.Concrete;
+﻿using Business.Abstract;
+using Business.Concrete;
 using DataAccess.EntityFramework;
 using Entity.Concrete;
 using Microsoft.AspNetCore.Authorization;
@@ -11,12 +12,16 @@ namespace TraversalCoreProject.Controllers
     [AllowAnonymous]
     public class DestinationController : Controller
     {
-        DestinationManager destinationManager = new DestinationManager(new EfDestinationDal());
+        private readonly IDestinationService destinationManager;
+       
         private readonly UserManager<AppUser> _userManager;
-        public DestinationController(UserManager<AppUser> userManager)
+     
+        public DestinationController(IDestinationService destinationManager, UserManager<AppUser> userManager)
         {
+            this.destinationManager = destinationManager;
             _userManager = userManager;
         }
+
         public IActionResult Index()
         {
             var values = destinationManager.GetAll();
