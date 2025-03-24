@@ -12,5 +12,7 @@ namespace Business.Abstract
         List<Comment> TGetDestinationById(int id);
         List<Comment> GetListCommentWithDestination();
 
+        public List<Comment> TGetListCommentWithDestinationAndUser(int id);
+
     }
 }

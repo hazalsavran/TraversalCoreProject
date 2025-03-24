@@ -1,6 +1,8 @@
 ﻿using Business.Concrete;
 using DataAccess.EntityFramework;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Entity.Concrete;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -10,19 +12,22 @@ namespace TraversalCoreProject.Controllers
     {
         CommentManager commentManager = new CommentManager(new EfCommentDal());
        
+
         [HttpGet]
         public PartialViewResult AddComment()
         {
+            
             return PartialView();
         }
 
         [HttpPost]
-        public IActionResult AddComment(Comment comment)
+        public IActionResult AddComment(Comment p)
         {
-            comment.CommentDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
-            comment.CommentState = true;
-            commentManager.Add(comment);
-            return RedirectToAction("Index","Destination");
+
+            p.CommentDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            p.CommentState = true;
+            commentManager.Add(p);
+            return RedirectToAction("Index", "Destination");
         }
     }
 }

@@ -9,5 +9,7 @@ namespace DataAccess.Abstract
 {
     public interface IDestinationDal : IRepository<Destination>
     {
+        public Destination GetDestinationWithGuide(int id);
+        public List<Destination> GetLast4Destinations();
     }
 }

@@ -10,5 +10,6 @@ namespace DataAccess.Abstract
     public  interface ICommentDal : IRepository<Comment>
     {
         public List<Comment> GetListCommentWithDestination();
+        public List<Comment> GetListCommentWithDestinationAndUser(int id);
     }
 }

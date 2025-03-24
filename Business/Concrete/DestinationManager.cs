@@ -42,5 +42,15 @@ namespace Business.Concrete
         {
             _destinationDal.Update(entity);
         }
+
+        public Destination TGetDestinationWithGuide(int id)
+        {
+            return _destinationDal.GetDestinationWithGuide(id);
+        }
+
+        public List<Destination> TGetLast4Destinations()
+        {
+            return _destinationDal.GetLast4Destinations();
+        }
     }
 }

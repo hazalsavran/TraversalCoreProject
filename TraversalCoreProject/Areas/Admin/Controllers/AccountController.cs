@@ -6,9 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TraversalCoreProje.Areas.Admin.Models;
+using TraversalCoreProject.Areas.Admin.Models;
 
-namespace TraversalCoreProje.Areas.Admin.Controllers
+namespace TraversalCoreProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [AllowAnonymous]
