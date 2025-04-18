@@ -22,6 +22,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TraversalCoreProject.CQRS.Handlers.DestinationHandlers;
 using TraversalCoreProject.Models;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace TraversalCoreProject
 {
@@ -70,6 +71,12 @@ namespace TraversalCoreProject
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
             services.AddMvc();
+            services.AddLocalization(opt =>
+            {
+                opt.ResourcesPath = "Resources";
+            });
+
+            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
 
             services.ConfigureApplicationCookie(options =>
             {
