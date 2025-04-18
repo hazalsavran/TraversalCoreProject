@@ -113,7 +113,9 @@ namespace TraversalCoreProject
             app.UseRouting();
 
             app.UseAuthorization();
-
+            var suppertedCultures = new[] { "en", "fr", "es", "gr", "tr", "de" };
+            var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(suppertedCultures[1]).AddSupportedCultures(suppertedCultures).AddSupportedUICultures(suppertedCultures);
+            app.UseRequestLocalization(localizationOptions);
             app.UseEndpoints(endpoints =>
             {
                 // Önce Area'larý tanýmla
