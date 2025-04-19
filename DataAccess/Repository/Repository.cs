@@ -49,5 +49,11 @@ namespace DataAccess.Repository
            using var c = new Context();
             return c.Set<T>().Where(filter).ToList();
         }
+
+        public List<T> GetList()
+        {
+            using var c = new Context();
+            return c.Set<T>().ToList();
+        }
     }
 }

@@ -32,7 +32,10 @@ namespace Business.Concrete
         {
             return _destinationDal.GetAll();
         }
-
+        public List<Destination> GetList()
+        {
+            return _destinationDal.GetList();
+        }
         public Destination GetById(int id)
         {
             return _destinationDal.GetByID(id);
